@@ -4,7 +4,7 @@
 
 module.exports = (sequelize, Sequelize) => {
   const Prod = sequelize.define(
-    "production",
+    "produit",
     {
       produitId: {
         type: Sequelize.INTEGER,
@@ -35,5 +35,5 @@ module.exports = (sequelize, Sequelize) => {
     }
   );
 
-  return Tag;
+  return Prod;
 };

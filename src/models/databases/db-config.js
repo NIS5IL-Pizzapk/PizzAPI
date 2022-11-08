@@ -40,9 +40,43 @@ db.adresseLivraison = require("../collections/adresseLivraison.model")(
   sequelize,
   Sequelize
 );
+db.allergenes = require("../collections/allergene.model")(sequelize, Sequelize);
+db.commande = require("../collections/commande.model")(sequelize, Sequelize);
+db.platcommande = require("../collections/platcommande.model")(
+  sequelize,
+  Sequelize
+);
+db.produit = require("../collections/produit.model")(sequelize, Sequelize);
+db.supplement = require("../collections/supplement.model")(
+  sequelize,
+  Sequelize
+);
+db.tag = require("../collections/tag.model")(sequelize, Sequelize);
 
 //Définition des relations entre les tables
 db.adresseLivraison.belongsTo(db.users);
 db.users.hasMany(db.adresseLivraison);
+
+db.commande.belongsTo(db.adresseLivraison);
+db.adresseLivraison.hasMany(db.commande);
+
+db.platcommande.belongsTo(db.commande);
+db.commande.hasMany(db.platcommande);
+
+db.platcommande.belongsTo(db.produit);
+db.produit.hasMany(db.platcommande);
+
+db.platcommande.belongsToMany(db.supplement, {
+  through: "supplement-plat-comm",
+});
+db.supplement.belongsToMany(db.platcommande, {
+  through: "supplement-plat-comm",
+});
+
+db.produit.belongsToMany(db.tag, { through: "produit-tag" });
+db.tag.belongsToMany(db.produit, { through: "produit-tag" });
+
+db.produit.belongsToMany(db.allergenes, { through: "produit-allergene" });
+db.allergenes.belongsToMany(db.produit, { through: "produit-allergene" });
 
 module.exports = db;
