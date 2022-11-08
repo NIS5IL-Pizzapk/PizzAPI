@@ -1,23 +1,23 @@
 const db = require("../models/databases/db-config");
-const AdresseLivraison = db.adresseLivraison;
+const Allergenes = db.allergene;
 
-exports.getAllAdresses = (req, res) => {
-  AdresseLivraison.findAll()
-    .then((result) => {
-      res.status(200).json({
-        message: "Adresses fetched successfully",
-        result: result,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Invalid authentication credentials! : " + err,
-      });
-    });
+exports.getAllAllergenes = (req, res) => {
+    Allergenes.findAll()
+        .then((result) => {
+            res.status(200).json({
+                message: "Adresses fetched successfully",
+                result: result,
+            });
+        })
+        .catch((err) => {
+            res.status(500).json({
+                message: "Invalid authentication credentials! : " + err,
+            });
+        });
 };
 
-exports.getAdresseById = (req, res) => {
-    AdresseLivraison.findByPk(req.params.id)
+exports.getAllergeneById = (req, res) => {
+    Allergenes.findByPk(req.params.id)
         .then((result) => {
             res.status(200).json({
                 message: "Adresses fetched successfully",
@@ -31,8 +31,8 @@ exports.getAdresseById = (req, res) => {
         });
 };
 
-exports.updateAdresse = (req, res) => {
-    AdresseLivraison.update(req.params.id)
+exports.updateAllergene = (req, res) => {
+    Allergenes.update(req.params.id)
         .then((result) => {
             res.status(200).json({
                 message: "Adresses fetched successfully",
@@ -46,8 +46,8 @@ exports.updateAdresse = (req, res) => {
         });
 };
 
-exports.deleteAdresse = (req, res) => {
-    AdresseLivraison.destroy(req.params.id)
+exports.deleteAllergene = (req, res) => {
+    Allergenes.destroy(req.params.id)
         .then((result) => {
             res.status(200).json({
                 message: "Adresses fetched successfully",
