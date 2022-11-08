@@ -3,28 +3,30 @@
 //=======================================
 
 module.exports = (sequelize, Sequelize) => {
-  const Adr = sequelize.define(
-    "adresse-livraison",
+  const Prod = sequelize.define(
+    "production",
     {
-      adrId: {
+      produitId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      adresse: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        defaultValue: "anon",
-      },
-      codePostal: {
+      type: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      ville: {
+      nom: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      instructions: {
+      description: {
+        type: Sequelize.STRING,
+      },
+      prix: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      imgPath: {
         type: Sequelize.STRING,
       },
     },
@@ -33,5 +35,5 @@ module.exports = (sequelize, Sequelize) => {
     }
   );
 
-  return Adr;
+  return Tag;
 };
