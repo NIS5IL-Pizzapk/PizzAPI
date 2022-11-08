@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce1739c8-c27e-4261-8bf4-9a94a7ec9fad" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/supplement.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/commande.routes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/supplement.routes.ts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
