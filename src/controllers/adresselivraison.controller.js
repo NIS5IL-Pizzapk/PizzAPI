@@ -60,3 +60,18 @@ exports.deleteAdresse = (req, res) => {
       });
     });
 };
+
+exports.createAdresse = (req, res) => {
+  AdresseLivraison.create(req.body)
+    .then((result) => {
+      res.status(200).json({
+        message: "Adress created successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Impossible de créer l'adresse : " + err,
+      });
+    });
+};

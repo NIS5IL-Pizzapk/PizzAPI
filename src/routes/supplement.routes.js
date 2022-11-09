@@ -1,11 +1,11 @@
 const router = require("express").Router();
-const addrController = require("../controllers/supplement.controller");
+const suppController = require("../controllers/supplement.controller");
 const auth = require("../middlewares/auth");
 
-router.get("/getall", auth, addrController.getAllSupplements);
-router.get("/byid/:id", auth, addrController.getSupplementById);
-router.get("/update/:id", auth, addrController.updateSupplement);
-router.get("/delete/:id", auth, addrController.deleteSupplement);
-
+router.get("/getall", auth, suppController.getAllSupplements);
+router.get("/byid/:id", auth, suppController.getSupplementById);
+router.post("/create", auth, suppController.createSupplement);
+router.get("/update/:id", auth, suppController.updateSupplement);
+router.get("/delete/:id", auth, suppController.deleteSupplement);
 
 module.exports = router;
