@@ -123,19 +123,97 @@ exports.login = (req, res, next) => {
 
 exports.addAdresse = (req, res, next) => {
   //On ajoute une adresse à l'utilisateur
-  User.findByPk(req.auth.userId)
+  User.findByPk(req.body.userId)
     .then((user) => {
       AddresseLivraison.findByPk(req.body.adresseId)
         .then((adresse) => {
-          user.addAdresseLivraison(adresse);
-          res.status(200).json({
-            message: "Adresse added to user",
-            result: user,
-          });
+          if (user != null && adresse != null) {
+            user.addAdresseLivraison(adresse);
+            res.status(200).json({
+              message: "Adresse added to user",
+              result: user,
+            });
+          } else {
+            res.status(200).json({
+              message: "L'adresse ou l'utilisateur n'existe pas",
+            });
+          }
         })
         .catch((err) => {
           res.status(500).json({
             message: "Adresse de livraison introuvable : " + err,
+          });
+        });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Utilisateur introuvable : " + err,
+      });
+    });
+};
+
+exports.getAllAdressesFromUser = (req, res, next) => {
+  if (req.auth.userId !== req.params.id && !req.auth.admin) {
+    return res.status(401).json({
+      message: "Invalid authentication credentials!",
+    });
+  }
+  User.findByPk(req.params.id)
+    .then((user) => {
+      if (user == null) {
+        return res.status(200).json({
+          message: "L'utilisateur n'existe pas",
+        });
+      }
+      user
+        .getAdresseLivraisons()
+        .then((adresses) => {
+          res.status(200).json({
+            message: "Adresses fetched successfully",
+            result: result,
+          });
+        })
+        .catch((err) => {
+          res.status(500).json({
+            message:
+              "Impossible d'obtenir les adresses de livraison associées à l'utilisateur : " +
+              err,
+          });
+        });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Utilisateur introuvable : " + err,
+      });
+    });
+};
+
+exports.getCurrentAdressesFromUser = (req, res, next) => {
+  if (req.auth.userId !== req.params.id && !req.auth.admin) {
+    return res.status(401).json({
+      message: "Invalid authentication credentials!",
+    });
+  }
+  User.findByPk(req.params.id)
+    .then((user) => {
+      if (user == null) {
+        return res.status(200).json({
+          message: "L'utilisateur n'existe pas",
+        });
+      }
+      user
+        .getAdresseLivraisons({ where: { displayed: true } })
+        .then((adresses) => {
+          res.status(200).json({
+            message: "Adresses fetched successfully",
+            result: result,
+          });
+        })
+        .catch((err) => {
+          res.status(500).json({
+            message:
+              "Impossible d'obtenir les adresses de livraison associées à l'utilisateur : " +
+              err,
           });
         });
     })

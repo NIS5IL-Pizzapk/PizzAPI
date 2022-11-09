@@ -27,6 +27,13 @@ module.exports = (sequelize, Sequelize) => {
       instructions: {
         type: Sequelize.STRING,
       },
+      name: {
+        type: Sequelize.STRING,
+      },
+      displayed: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
     },
     {
       timestamps: false,
