@@ -39,5 +39,11 @@ app.listen(port, hostname, () => {
 // Routes Controllers
 //=======================================
 
-app.use("/api/user", require("./routes/user.routes"));
 app.use("/api/adresse", require("./routes/adresselivraison.routes"));
+app.use("/api/allergene", require("./routes/allergene.routes"));
+app.use("/api/commande", require("./routes/commande.routes"));
+app.use("/api/platcommande", require("./routes/platcommande.routes"));
+app.use("/api/produit", require("./routes/produit.routes"));
+app.use("/api/supplement", require("./routes/supplement.routes"));
+app.use("/api/tag", require("./routes/tag.routes"));
+app.use("/api/user", require("./routes/user.routes"));
