@@ -53,6 +53,11 @@ db.supplement = require("../collections/supplement.model")(
 );
 db.tag = require("../collections/tag.model")(sequelize, Sequelize);
 
+db.reservation = require("../collections/reservation.model")(
+  sequelize,
+  Sequelize
+);
+
 //Définition des relations entre les tables
 db.adresseLivraison.belongsTo(db.users);
 db.users.hasMany(db.adresseLivraison);
@@ -78,5 +83,8 @@ db.tag.belongsToMany(db.produit, { through: "produit-tag" });
 
 db.produit.belongsToMany(db.allergenes, { through: "produit-allergene" });
 db.allergenes.belongsToMany(db.produit, { through: "produit-allergene" });
+
+db.reservation.belongsTo(db.users);
+db.users.hasMany(db.reservation);
 
 module.exports = db;

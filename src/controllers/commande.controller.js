@@ -75,3 +75,25 @@ exports.createCommande = (req, res) => {
       });
     });
 };
+
+exports.getAllCommandesFromUser = (req, res) => {
+  Commande.findAll({
+    include: [
+      {
+        model: db.adresseLivraison,
+        include: [{ model: db.user, where: { id: req.params.id } }],
+      },
+    ],
+  })
+    .then((result) => {
+      res.status(200).json({
+        message: "Commandes fetched successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Invalid authentication credentials! : " + err,
+      });
+    });
+};

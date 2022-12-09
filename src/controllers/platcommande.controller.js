@@ -2,7 +2,7 @@ const db = require("../models/databases/db-config");
 const PlatComm = db.platcommande;
 
 exports.getAllPlatsCommandes = (req, res) => {
-  PlatComm.findAll()
+  PlatComm.findAll({ include: [{ model: db.supplement, required: false }] })
     .then((result) => {
       res.status(200).json({
         message: "Plats fetched successfully",
@@ -17,7 +17,9 @@ exports.getAllPlatsCommandes = (req, res) => {
 };
 
 exports.getPlatCommandeById = (req, res) => {
-  PlatComm.findByPk(req.params.id)
+  PlatComm.findByPk(req.params.id, {
+    include: [{ model: db.supplement, required: false }],
+  })
     .then((result) => {
       res.status(200).json({
         message: "Product fetched successfully",
@@ -66,6 +68,26 @@ exports.createPlatCommande = (req, res) => {
     .then((result) => {
       res.status(200).json({
         message: "Products created successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Produit introuvable : " + err,
+      });
+    });
+};
+
+exports.getByCommande = (req, res) => {
+  PlatComm.findAll({
+    where: {
+      commandeId: req.params.id,
+    },
+    include: [{ model: db.supplement, required: false }],
+  })
+    .then((result) => {
+      res.status(200).json({
+        message: "Products fetched successfully",
         result: result,
       });
     })

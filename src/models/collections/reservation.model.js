@@ -3,24 +3,33 @@
 //=======================================
 
 module.exports = (sequelize, Sequelize) => {
-  const Supp = sequelize.define(
-    "supplement",
+  const Resa = sequelize.define(
+    "reservation",
     {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      typePlat: {
-        type: Sequelize.STRING,
+      date_resa: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      heure_resa: {
+        type: Sequelize.TIME,
+        allowNull: false,
+      },
+      nb_personnes: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       nom: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      commentaires: {
+      restaurant: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
     },
     {
@@ -28,5 +37,5 @@ module.exports = (sequelize, Sequelize) => {
     }
   );
 
-  return Supp;
+  return Resa;
 };

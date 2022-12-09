@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
   const Allergene = sequelize.define(
     "allergene",
     {
-      AllergeneId: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
