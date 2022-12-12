@@ -18,10 +18,12 @@ module.exports = (sequelize, Sequelize) => {
       dateComm: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.NOW,
       },
       heureComm: {
         type: Sequelize.TIME,
         allowNull: false,
+        defaultValue: Sequelize.NOW,
       },
       dateLivr: {
         type: Sequelize.DATE,

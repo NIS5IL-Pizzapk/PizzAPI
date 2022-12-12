@@ -8,6 +8,6 @@ router.post("/create", auth, commController.createCommande);
 router.put("/update/:id", auth, commController.updateCommande);
 router.delete("/delete/:id", auth, commController.deleteCommande);
 //Utiliser cette route pour récupérer toutes les commandes d'un utilisateur
-router.get("/from-user/:id", commController.getAllCommandesFromUser);
+router.get("/from_user/:id", commController.getAllCommandesFromUser);
 
 module.exports = router;

@@ -7,5 +7,7 @@ router.get("/byid/:id", auth, alrgController.getAllergeneById);
 router.post("/create", auth, alrgController.createAllergene);
 router.put("/update/:id", auth, alrgController.updateAllergene);
 router.delete("/delete/:id", auth, alrgController.deleteAllergene);
+router.get("/get_by_produit/:id", auth, alrgController.getAllergeneByProduitId);
+router.post("/add_to_produit", auth, alrgController.addToProduit);
 
 module.exports = router;

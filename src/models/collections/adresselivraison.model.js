@@ -33,6 +33,7 @@ module.exports = (sequelize, Sequelize) => {
       displayed: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
+        defaultValue: true,
       },
     },
     {
