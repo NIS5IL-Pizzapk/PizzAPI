@@ -114,9 +114,7 @@ exports.getPlatByTag = (req, res) => {
       {
         model: db.tag,
         where: { id: req.params.id },
-        through: {
-          attributes: [],
-        },
+        attributes: [],
       },
     ],
   })
@@ -140,9 +138,7 @@ exports.getSupplementByTag = (req, res) => {
       {
         model: db.tag,
         where: { id: req.params.id },
-        through: {
-          attributes: [],
-        },
+        attributes: [],
       },
     ],
   })
@@ -165,9 +161,7 @@ exports.getByPlatCommande = (req, res) => {
       {
         model: db.platcommande,
         where: { id: req.params.id },
-        through: {
-          attributes: [],
-        },
+        includeIgnoreAttributes: false,
       },
     ],
   })
@@ -225,17 +219,13 @@ exports.getPlatsByTypeEtRestaurant = (req, res) => {
         model: db.restaurant,
         where: { id: req.body.restaurantId },
         required: true,
-        through: {
-          attributes: [],
-        },
+        attributes: [],
       },
       {
-        model: db.type,
+        model: db.typeProduit,
         where: { id: req.body.typeId },
         required: true,
-        through: {
-          attributes: [],
-        },
+        attributes: [],
       },
     ],
   })
@@ -260,17 +250,13 @@ exports.getSupplementsByTypeEtRestaurant = (req, res) => {
         model: db.restaurant,
         where: { id: req.body.restaurantId },
         required: true,
-        through: {
-          attributes: [],
-        },
+        attributes: [],
       },
       {
-        model: db.type,
+        model: db.typeProduit,
         where: { id: req.body.typeId },
         required: true,
-        through: {
-          attributes: [],
-        },
+        attributes: [],
       },
     ],
   })
