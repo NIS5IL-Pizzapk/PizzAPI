@@ -2,7 +2,7 @@ const router = require("express").Router();
 const prodController = require("../controllers/produit.controller");
 const auth = require("../middlewares/auth");
 
-router.get("/get_all", auth, prodController.getAllProduits);
+router.get("/get_all", prodController.getAllProduits);
 router.get("/get_all_plats", auth, prodController.getAllPlats);
 router.get("/get_all_supplements", auth, prodController.getAllSupplements);
 router.get("/by_id/:id", auth, prodController.getProduitById);
