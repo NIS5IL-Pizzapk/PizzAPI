@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { combineTableNames } = require("sequelize/types/utils");
+//const { combineTableNames } = require("sequelize/types/utils");
 require("dotenv").config();
 const {
   MYSQL_ADRESS,
@@ -99,4 +99,4 @@ db.users.hasMany(db.reservation);
 db.reservation.belongsTo(db.restaurant);
 db.restaurant.hasMany(db.reservation);
 
-db.module.exports = db;
+module.exports = db;
