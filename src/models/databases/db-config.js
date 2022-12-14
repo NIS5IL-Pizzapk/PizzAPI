@@ -74,8 +74,14 @@ db.adresseLivraison.hasMany(db.commande);
 db.platcommande.belongsTo(db.commande);
 db.commande.hasMany(db.platcommande);
 
-db.platcommande.belongsTo(db.produit);
-db.produit.hasMany(db.platcommande);
+db.platcommande.belongsToMany(db.produit, {
+  through: "produit_plat_commande",
+  timestamps: false,
+});
+db.produit.belongsToMany(db.platcommande, {
+  through: "produit_plat_commande",
+  timestamps: false,
+});
 
 db.produit.belongsToMany(db.tag, { through: "produit_tag", timestamps: false });
 db.tag.belongsToMany(db.produit, { through: "produit_tag", timestamps: false });
