@@ -79,43 +79,53 @@ exports.login = (req, res, next) => {
     .then((user) => {
       //Si l'utilisateur n'existe pas
       if (!user) {
-        return res.status(401).json({
-          message: "Auth failed",
+        res.status(401).json({
+          message: "Auth failed 1",
         });
+      } else {
+        //On stocke l'utilisateur dans une variable
+        fetchedUser = user;
+        //On compare le mot de passe entré avec le hash
+        result = bcrypt.compare(
+          req.body.password,
+          user.password,
+          function (err, result) {
+            if (err) {
+              // handle error
+              res.status(401).json({
+                message: "Auth failed : " + err,
+              });
+            }
+            if (result) {
+              //On crée un token
+              //username et userId sont des données qu'on peut récupérer dans le token
+              //JWT_KEY est la clé secrète pour le token
+              const token = jwt.sign(
+                {
+                  username: fetchedUser.username,
+                  userId: fetchedUser._id,
+                  email: fetchedUser.email,
+                },
+                process.env.JWT_KEY,
+                { expiresIn: "1h" }
+              );
+              //Si le mot de passe est correct
+              res.status(200).json({
+                message: "Auth successful",
+                result: fetchedUser,
+                token: token,
+              });
+            } else {
+              res.status(401).json({
+                message: "Auth failed 2",
+              });
+            }
+          }
+        );
       }
-      //On stocke l'utilisateur dans une variable
-      fetchedUser = user;
-      //On compare le mot de passe entré avec le hash
-      return bcrypt.compare(req.body.password, user.password);
-    })
-    .then((result) => {
-      //Si le mot de passe est incorrect
-      if (!result) {
-        return res.status(401).json({
-          message: "Auth failed",
-        });
-      }
-      //On crée un token
-      //username et userId sont des données qu'on peut récupérer dans le token
-      //JWT_KEY est la clé secrète pour le token
-      const token = jwt.sign(
-        {
-          username: fetchedUser.username,
-          userId: fetchedUser._id,
-          email: fetchedUser.email,
-        },
-        process.env.JWT_KEY,
-        { expiresIn: "1h" }
-      );
-      //Si le mot de passe est correct
-      res.status(200).json({
-        message: "Auth successful",
-        result: fetchedUser,
-        token: token,
-      });
     })
     .catch((err) => {
-      return res.status(401).json({
+      res.status(401).json({
         message: "Invalid authentication credentials!",
       });
     });
