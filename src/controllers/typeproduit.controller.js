@@ -113,9 +113,11 @@ exports.getTypesProduitByRestaurantId = (req, res) => {
       include: [
         {
           model: db.produit,
-          attributes: [],
           where: { restaurantId: req.params.id },
           required: true,
+          through: {
+            attributes: [],
+          },
         },
       ],
     })

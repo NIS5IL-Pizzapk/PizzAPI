@@ -3,14 +3,25 @@ const prodController = require("../controllers/produit.controller");
 const auth = require("../middlewares/auth");
 
 router.get("/get_all", auth, prodController.getAllProduits);
-router.get("/get_all_plats", auth, prodController.getAllPlats);
-router.get("/get_all_supplements", auth, prodController.getAllSupplements);
 router.get("/by_id/:id", auth, prodController.getProduitById);
 router.post("/create", auth, prodController.createProduit);
 router.put("/update/:id", auth, prodController.updateProduit);
 router.delete("/delete/:id", auth, prodController.deleteProduit);
-router.get("/plat_by_tag/:id", prodController.getPlatByTag);
-router.get("/supplement_by_tag/:id", prodController.getSupplementByTag);
 router.get("/by_plat_commande/:id", prodController.getByPlatCommande);
+router.post("/add_to_plat_commande", prodController.addToPlatCommande);
+
+router.get("/plat/get_all", auth, prodController.getAllPlats);
+router.get("/plat/by_tag/:id", prodController.getPlatByTag);
+router.post(
+  "/plat/by_type_et_restaurant",
+  prodController.getPlatsByTypeEtRestaurant
+);
+
+router.get("/supplement/get_all", auth, prodController.getAllSupplements);
+router.get("/supplement/by_tag/:id", prodController.getSupplementByTag);
+router.post(
+  "/supplement/by_type_et_restaurant",
+  prodController.getSupplementsByTypeEtRestaurant
+);
 
 module.exports = router;
