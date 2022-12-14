@@ -77,17 +77,25 @@ db.commande.hasMany(db.platcommande);
 db.platcommande.belongsTo(db.produit);
 db.produit.hasMany(db.platcommande);
 
-db.produit.belongsToMany(db.tag, { through: "produit_tag" });
-db.tag.belongsToMany(db.produit, { through: "produit_tag" });
+db.produit.belongsToMany(db.tag, { through: "produit_tag", timestamps: false });
+db.tag.belongsToMany(db.produit, { through: "produit_tag", timestamps: false });
 
-db.produit.belongsToMany(db.allergenes, { through: "produit_allergene" });
-db.allergenes.belongsToMany(db.produit, { through: "produit_allergene" });
+db.produit.belongsToMany(db.allergenes, {
+  through: "produit_allergene",
+  timestamps: false,
+});
+db.allergenes.belongsToMany(db.produit, {
+  through: "produit_allergene",
+  timestamps: false,
+});
 
 db.produit.belongsToMany(db.typeProduit, {
   through: "produit_type_de_produit",
+  timestamps: false,
 });
 db.typeProduit.belongsToMany(db.produit, {
   through: "produit_type_de_produit",
+  timestamps: false,
 });
 
 db.produit.belongsTo(db.restaurant);
