@@ -2,6 +2,8 @@ const express = require("express"); // Import express
 const cors = require("cors"); // Import cors
 const db = require("./models/databases/db-config"); // Import db
 require("dotenv").config(); // Import dotenv
+const swaggerUi = require("swagger-ui-express"); // Import swagger
+const swaggerFile = require("./swagger_output.json"); // Import swagger
 
 //=======================================
 // Constantes et variables
@@ -49,3 +51,6 @@ app.use("/api/user", require("./routes/user.routes"));
 app.use("/api/reservation", require("./routes/reservation.routes"));
 app.use("/api/restaurant", require("./routes/restaurant.routes"));
 app.use("/api/typeproduit", require("./routes/typeproduit.routes"));
+
+//SWAGGER
+app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
