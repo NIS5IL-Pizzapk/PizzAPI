@@ -4,7 +4,7 @@
 
 module.exports = (sequelize, Sequelize) => {
   const Adr = sequelize.define(
-    "adresse-livraison",
+    "adresse_livraison",
     {
       id: {
         type: Sequelize.INTEGER,

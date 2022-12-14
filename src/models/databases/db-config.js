@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const { combineTableNames } = require("sequelize/types/utils");
 require("dotenv").config();
 const {
   MYSQL_ADRESS,
@@ -47,13 +48,18 @@ db.platcommande = require("../collections/platcommande.model")(
   Sequelize
 );
 db.produit = require("../collections/produit.model")(sequelize, Sequelize);
-db.supplement = require("../collections/supplement.model")(
-  sequelize,
-  Sequelize
-);
+
 db.tag = require("../collections/tag.model")(sequelize, Sequelize);
 
 db.reservation = require("../collections/reservation.model")(
+  sequelize,
+  Sequelize
+);
+db.restaurant = require("../collections/restaurant.model")(
+  sequelize,
+  Sequelize
+);
+db.typeProduit = require("../collections/typeproduit.model")(
   sequelize,
   Sequelize
 );
@@ -71,20 +77,26 @@ db.commande.hasMany(db.platcommande);
 db.platcommande.belongsTo(db.produit);
 db.produit.hasMany(db.platcommande);
 
-db.platcommande.belongsToMany(db.supplement, {
-  through: "supplement-plat-comm",
+db.produit.belongsToMany(db.tag, { through: "produit_tag" });
+db.tag.belongsToMany(db.produit, { through: "produit_tag" });
+
+db.produit.belongsToMany(db.allergenes, { through: "produit_allergene" });
+db.allergenes.belongsToMany(db.produit, { through: "produit_allergene" });
+
+db.produit.belongsToMany(db.typeProduit, {
+  through: "produit_type_de_produit",
 });
-db.supplement.belongsToMany(db.platcommande, {
-  through: "supplement-plat-comm",
+db.typeProduit.belongsToMany(db.produit, {
+  through: "produit_type_de_produit",
 });
 
-db.produit.belongsToMany(db.tag, { through: "produit-tag" });
-db.tag.belongsToMany(db.produit, { through: "produit-tag" });
-
-db.produit.belongsToMany(db.allergenes, { through: "produit-allergene" });
-db.allergenes.belongsToMany(db.produit, { through: "produit-allergene" });
+db.produit.belongsTo(db.restaurant);
+db.restaurant.hasMany(db.produit);
 
 db.reservation.belongsTo(db.users);
 db.users.hasMany(db.reservation);
 
-module.exports = db;
+db.reservation.belongsTo(db.restaurant);
+db.restaurant.hasMany(db.reservation);
+
+db.module.exports = db;

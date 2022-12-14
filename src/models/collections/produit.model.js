@@ -22,6 +22,10 @@ module.exports = (sequelize, Sequelize) => {
       description: {
         type: Sequelize.STRING,
       },
+      supplement: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
       prix: {
         type: Sequelize.FLOAT,
         allowNull: false,

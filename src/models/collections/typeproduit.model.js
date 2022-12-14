@@ -4,7 +4,7 @@
 
 module.exports = (sequelize, Sequelize) => {
   const TypeProduit = sequelize.define(
-    "type-produit",
+    "type_de_produit",
     {
       id: {
         type: Sequelize.INTEGER,

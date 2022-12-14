@@ -16,6 +16,36 @@ exports.getAllProduits = (req, res) => {
     });
 };
 
+exports.getAllPlats = (req, res) => {
+  Produit.findAll({ where: { supplement: false } })
+    .then((result) => {
+      res.status(200).json({
+        message: "Products fetched successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Produits introuvables : " + err,
+      });
+    });
+};
+
+exports.getAllSupplements = (req, res) => {
+  Produit.findAll({ where: { supplement: true } })
+    .then((result) => {
+      res.status(200).json({
+        message: "Products fetched successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Produits introuvables : " + err,
+      });
+    });
+};
+
 exports.getProduitById = (req, res) => {
   Produit.findByPk(req.params.id)
     .then((result) => {
@@ -76,9 +106,45 @@ exports.createProduit = (req, res) => {
     });
 };
 
-exports.getByTag = (req, res) => {
+exports.getPlatByTag = (req, res) => {
   Produit.findAll({
+    where: { supplement: false },
     include: [{ model: db.tag, where: { id: req.params.id } }],
+  })
+    .then((result) => {
+      res.status(200).json({
+        message: "Products fetched successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Produits introuvables : " + err,
+      });
+    });
+};
+
+exports.getSupplementByTag = (req, res) => {
+  Produit.findAll({
+    where: { supplement: true },
+    include: [{ model: db.tag, where: { id: req.params.id } }],
+  })
+    .then((result) => {
+      res.status(200).json({
+        message: "Products fetched successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Produits introuvables : " + err,
+      });
+    });
+};
+
+exports.getByPlatCommande = (req, res) => {
+  Produit.findAll({
+    include: [{ model: db.platcommande, where: { id: req.params.id } }],
   })
     .then((result) => {
       res.status(200).json({
