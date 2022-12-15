@@ -1,5 +1,5 @@
 const db = require("../models/databases/db-config");
-const Restaurant = db.Restaurant;
+const Restaurant = db.restaurant;
 const Produit = db.produit;
 
 exports.getAllRestaurants = (req, res) => {
