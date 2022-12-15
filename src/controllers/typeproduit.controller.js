@@ -142,7 +142,7 @@ exports.addToProduit = (req, res, next) => {
       Produit.findByPk(req.body.produitId)
         .then((produit) => {
           if (type != null && produit != null) {
-            alrg.addProduit(produit);
+            type.addProduit(produit);
             res.status(200).json({
               message: "Type " + type.nom + " ajouté au produit " + produit.nom,
             });

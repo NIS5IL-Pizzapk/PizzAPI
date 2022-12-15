@@ -184,7 +184,7 @@ exports.addToPlatCommande = (req, res) => {
       PlatCommande.findByPk(req.body.platCommandeId)
         .then((platCom) => {
           if (produit != null && platCom != null) {
-            produit.addProduit(platCom);
+            platCom.addProduit(produit);
             res.status(200).json({
               message:
                 "Produit " +
