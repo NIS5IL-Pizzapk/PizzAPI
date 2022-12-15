@@ -1,5 +1,6 @@
 const db = require("../models/databases/db-config");
 const Produit = db.produit;
+const PlatCommande = db.platcommande;
 
 exports.getAllProduits = (req, res) => {
   Produit.findAll()
@@ -109,7 +110,13 @@ exports.createProduit = (req, res) => {
 exports.getPlatByTag = (req, res) => {
   Produit.findAll({
     where: { supplement: false },
-    include: [{ model: db.tag, where: { id: req.params.id } }],
+    include: [
+      {
+        model: db.tag,
+        where: { id: req.params.id },
+        attributes: [],
+      },
+    ],
   })
     .then((result) => {
       res.status(200).json({
@@ -127,7 +134,13 @@ exports.getPlatByTag = (req, res) => {
 exports.getSupplementByTag = (req, res) => {
   Produit.findAll({
     where: { supplement: true },
-    include: [{ model: db.tag, where: { id: req.params.id } }],
+    include: [
+      {
+        model: db.tag,
+        where: { id: req.params.id },
+        attributes: [],
+      },
+    ],
   })
     .then((result) => {
       res.status(200).json({
@@ -144,7 +157,108 @@ exports.getSupplementByTag = (req, res) => {
 
 exports.getByPlatCommande = (req, res) => {
   Produit.findAll({
-    include: [{ model: db.platcommande, where: { id: req.params.id } }],
+    include: [
+      {
+        model: db.platcommande,
+        where: { id: req.params.id },
+        includeIgnoreAttributes: false,
+      },
+    ],
+  })
+    .then((result) => {
+      res.status(200).json({
+        message: "Products fetched successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Produits introuvables : " + err,
+      });
+    });
+};
+
+exports.addToPlatCommande = (req, res) => {
+  Produit.findByPk(req.body.produitId)
+    .then((produit) => {
+      PlatCommande.findByPk(req.body.platCommandeId)
+        .then((platCom) => {
+          if (produit != null && platCom != null) {
+            produit.addProduit(platCom);
+            res.status(200).json({
+              message:
+                "Produit " +
+                produit.nom +
+                " ajouté au plat commandé d'id " +
+                platCom.id,
+            });
+          } else {
+            res.status(200).json({
+              message: "Le plat commandé ou le produit n'existe pas",
+            });
+          }
+        })
+        .catch((err) => {
+          res.status(500).json({
+            message: "Plat Commandé introuvable : " + err,
+          });
+        });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Produit introuvable : " + err,
+      });
+    });
+};
+
+exports.getPlatsByTypeEtRestaurant = (req, res) => {
+  Produit.findAll({
+    where: { supplement: false },
+    include: [
+      {
+        model: db.restaurant,
+        where: { id: req.body.restaurantId },
+        required: true,
+        attributes: [],
+      },
+      {
+        model: db.typeProduit,
+        where: { id: req.body.typeId },
+        required: true,
+        attributes: [],
+      },
+    ],
+  })
+    .then((result) => {
+      res.status(200).json({
+        message: "Products fetched successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Produits introuvables : " + err,
+      });
+    });
+};
+
+exports.getSupplementsByTypeEtRestaurant = (req, res) => {
+  Produit.findAll({
+    where: { supplement: true },
+    include: [
+      {
+        model: db.restaurant,
+        where: { id: req.body.restaurantId },
+        required: true,
+        attributes: [],
+      },
+      {
+        model: db.typeProduit,
+        where: { id: req.body.typeId },
+        required: true,
+        attributes: [],
+      },
+    ],
   })
     .then((result) => {
       res.status(200).json({
