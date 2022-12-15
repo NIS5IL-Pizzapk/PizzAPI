@@ -2,7 +2,7 @@ const router = require("express").Router();
 const typeController = require("../controllers/typeproduit.controller");
 const auth = require("../middlewares/auth");
 
-router.get("/get_all", auth, typeController.getAllTypesProduit);
+router.get("/get_all", typeController.getAllTypesProduit);
 router.get("/by_id/:id", auth, typeController.getTypeProduitById);
 router.post("/create", auth, typeController.createTypeProduit);
 router.put("/update/:id", auth, typeController.updateTypeProduit);
