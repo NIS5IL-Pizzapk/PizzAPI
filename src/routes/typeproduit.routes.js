@@ -17,6 +17,6 @@ router.get(
   auth,
   typeController.getTypesProduitByRestaurantId
 );
-router.post("/add_to_produit", auth, typeController.addToProduit);
+router.post("/add_to_produit", typeController.addToProduit);
 
 module.exports = router;

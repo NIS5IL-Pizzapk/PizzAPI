@@ -2,9 +2,9 @@ const router = require("express").Router();
 const prodController = require("../controllers/produit.controller");
 const auth = require("../middlewares/auth");
 
-router.get("/get_all", auth, prodController.getAllProduits);
+router.get("/get_all", prodController.getAllProduits);
 router.get("/by_id/:id", auth, prodController.getProduitById);
-router.post("/create", auth, prodController.createProduit);
+router.post("/create", prodController.createProduit);
 router.put("/update/:id", auth, prodController.updateProduit);
 router.delete("/delete/:id", auth, prodController.deleteProduit);
 router.get("/by_plat_commande/:id", prodController.getByPlatCommande);
