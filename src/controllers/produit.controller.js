@@ -3,7 +3,11 @@ const Produit = db.produit;
 const PlatCommande = db.platcommande;
 
 exports.getAllProduits = (req, res) => {
-  Produit.findAll({ include: [{ model: db.typeProduit, required: false }] })
+  Produit.findAll({
+    include: [
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
+    ],
+  })
     .then((result) => {
       res.status(200).json({
         message: "Products fetched successfully",
@@ -20,7 +24,9 @@ exports.getAllProduits = (req, res) => {
 exports.getAllPlats = (req, res) => {
   Produit.findAll({
     where: { supplement: false },
-    include: [{ model: db.typeProduit, required: false }],
+    include: [
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
+    ],
   })
     .then((result) => {
       res.status(200).json({
@@ -38,7 +44,9 @@ exports.getAllPlats = (req, res) => {
 exports.getAllSupplements = (req, res) => {
   Produit.findAll({
     where: { supplement: true },
-    include: [{ model: db.typeProduit, required: false }],
+    include: [
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
+    ],
   })
     .then((result) => {
       res.status(200).json({
@@ -55,7 +63,9 @@ exports.getAllSupplements = (req, res) => {
 
 exports.getProduitById = (req, res) => {
   Produit.findByPk(req.params.id, {
-    include: [{ model: db.typeProduit, required: false }],
+    include: [
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
+    ],
   })
     .then((result) => {
       res.status(200).json({
@@ -124,7 +134,7 @@ exports.getPlatByTag = (req, res) => {
         where: { id: req.params.id },
         attributes: [],
       },
-      { model: db.typeProduit, required: false },
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
     ],
   })
     .then((result) => {
@@ -149,7 +159,7 @@ exports.getSupplementByTag = (req, res) => {
         where: { id: req.params.id },
         attributes: [],
       },
-      { model: db.typeProduit, required: false },
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
     ],
   })
     .then((result) => {
@@ -173,7 +183,7 @@ exports.getByPlatCommande = (req, res) => {
         where: { id: req.params.id },
         includeIgnoreAttributes: false,
       },
-      { model: db.typeProduit, required: false },
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
     ],
   })
     .then((result) => {
