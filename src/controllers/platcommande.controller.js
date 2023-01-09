@@ -2,7 +2,7 @@ const db = require("../models/databases/db-config");
 const PlatComm = db.platcommande;
 
 exports.getAllPlatsCommandes = (req, res) => {
-  PlatComm.findAll({ include: [{ model: db.supplement, required: false }] })
+  PlatComm.findAll({ include: [{ model: db.produit, required: false }] })
     .then((result) => {
       res.status(200).json({
         message: "Plats fetched successfully",
@@ -18,7 +18,7 @@ exports.getAllPlatsCommandes = (req, res) => {
 
 exports.getPlatCommandeById = (req, res) => {
   PlatComm.findByPk(req.params.id, {
-    include: [{ model: db.supplement, required: false }],
+    include: [{ model: db.produit, required: false }],
   })
     .then((result) => {
       res.status(200).json({
@@ -83,7 +83,7 @@ exports.getByCommande = (req, res) => {
     where: {
       commandeId: req.params.id,
     },
-    include: [{ model: db.supplement, required: false }],
+    include: [{ model: db.produit, required: false }],
   })
     .then((result) => {
       res.status(200).json({

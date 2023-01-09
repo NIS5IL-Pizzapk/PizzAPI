@@ -81,7 +81,13 @@ exports.getAllCommandesFromUser = (req, res) => {
     include: [
       {
         model: db.adresseLivraison,
-        include: [{ model: db.user, where: { id: req.params.id } }],
+        include: [
+          { model: db.user, where: { id: req.params.id }, attributes: [] },
+        ],
+      },
+      {
+        model: db.platcommande,
+        include: [{ model: db.produit, through: { attributes: [] } }],
       },
     ],
   })
