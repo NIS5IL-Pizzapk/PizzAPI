@@ -3,7 +3,7 @@ const Reservation = db.reservation;
 const User = db.users;
 
 exports.getAllReservations = (req, res) => {
-  Reservation.findAll()
+  Reservation.findAll({ include: [{ model: db.restaurant }] })
     .then((result) => {
       res.status(200).json({
         message: "Reservations fetched successfully",

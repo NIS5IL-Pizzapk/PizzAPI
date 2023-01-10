@@ -3,7 +3,11 @@ const Produit = db.produit;
 const PlatCommande = db.platcommande;
 
 exports.getAllProduits = (req, res) => {
-  Produit.findAll()
+  Produit.findAll({
+    include: [
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
+    ],
+  })
     .then((result) => {
       res.status(200).json({
         message: "Products fetched successfully",
@@ -18,7 +22,12 @@ exports.getAllProduits = (req, res) => {
 };
 
 exports.getAllPlats = (req, res) => {
-  Produit.findAll({ where: { supplement: false } })
+  Produit.findAll({
+    where: { supplement: false },
+    include: [
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
+    ],
+  })
     .then((result) => {
       res.status(200).json({
         message: "Products fetched successfully",
@@ -33,7 +42,12 @@ exports.getAllPlats = (req, res) => {
 };
 
 exports.getAllSupplements = (req, res) => {
-  Produit.findAll({ where: { supplement: true } })
+  Produit.findAll({
+    where: { supplement: true },
+    include: [
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
+    ],
+  })
     .then((result) => {
       res.status(200).json({
         message: "Products fetched successfully",
@@ -48,7 +62,11 @@ exports.getAllSupplements = (req, res) => {
 };
 
 exports.getProduitById = (req, res) => {
-  Produit.findByPk(req.params.id)
+  Produit.findByPk(req.params.id, {
+    include: [
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
+    ],
+  })
     .then((result) => {
       res.status(200).json({
         message: "Product fetched successfully",
@@ -93,7 +111,7 @@ exports.deleteProduit = (req, res) => {
 };
 
 exports.createProduit = (req, res) => {
-  Produit.create(req.body)
+  Produit.create(req.body, { include: [{ model: db.tag }] })
     .then((result) => {
       res.status(200).json({
         message: "Products created successfully",
@@ -102,7 +120,7 @@ exports.createProduit = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Produit introuvable : " + err,
+        message: "Erreur : " + err,
       });
     });
 };
@@ -116,6 +134,7 @@ exports.getPlatByTag = (req, res) => {
         where: { id: req.params.id },
         attributes: [],
       },
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
     ],
   })
     .then((result) => {
@@ -140,6 +159,7 @@ exports.getSupplementByTag = (req, res) => {
         where: { id: req.params.id },
         attributes: [],
       },
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
     ],
   })
     .then((result) => {
@@ -163,6 +183,7 @@ exports.getByPlatCommande = (req, res) => {
         where: { id: req.params.id },
         includeIgnoreAttributes: false,
       },
+      { model: db.typeProduit, required: false, through: { attributes: [] } },
     ],
   })
     .then((result) => {
@@ -184,7 +205,7 @@ exports.addToPlatCommande = (req, res) => {
       PlatCommande.findByPk(req.body.platCommandeId)
         .then((platCom) => {
           if (produit != null && platCom != null) {
-            produit.addProduit(platCom);
+            platCom.addProduit(produit);
             res.status(200).json({
               message:
                 "Produit " +
@@ -226,6 +247,18 @@ exports.getPlatsByTypeEtRestaurant = (req, res) => {
         where: { id: req.body.typeId },
         required: true,
         attributes: [],
+      },
+      {
+        model: db.tag,
+        through: {
+          attributes: [],
+        },
+      },
+      {
+        model: db.allergenes,
+        through: {
+          attributes: [],
+        },
       },
     ],
   })
