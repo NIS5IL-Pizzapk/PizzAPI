@@ -51,6 +51,7 @@ app.use("/api/user", require("./routes/user.routes"));
 app.use("/api/reservation", require("./routes/reservation.routes"));
 app.use("/api/restaurant", require("./routes/restaurant.routes"));
 app.use("/api/typeproduit", require("./routes/typeproduit.routes"));
+app.use("/api/creneau", require("./routes/creneau.routes"));
 
 //SWAGGER
 app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));

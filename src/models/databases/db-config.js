@@ -63,6 +63,7 @@ db.typeProduit = require("../collections/typeproduit.model")(
   sequelize,
   Sequelize
 );
+db.creneau = require("../collections/creneau.model")(sequelize, Sequelize);
 
 //Définition des relations entre les tables
 db.adresseLivraison.belongsTo(db.users);
@@ -106,5 +107,11 @@ db.users.hasMany(db.reservation);
 
 db.reservation.belongsTo(db.restaurant);
 db.restaurant.hasMany(db.reservation);
+
+db.creneau.belongsTo(db.restaurant);
+db.restaurant.hasMany(db.creneau);
+
+db.creneau.hasMany(db.platcommande);
+db.platcommande.belongsTo(db.creneau);
 
 module.exports = db;
