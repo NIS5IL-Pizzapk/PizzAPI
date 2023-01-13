@@ -95,14 +95,8 @@ db.allergenes.belongsToMany(db.produit, {
   timestamps: false,
 });
 
-db.produit.belongsToMany(db.typeProduit, {
-  through: "produit_type_de_produit",
-  timestamps: false,
-});
-db.typeProduit.belongsToMany(db.produit, {
-  through: "produit_type_de_produit",
-  timestamps: false,
-});
+db.produit.belongsTo(db.typeProduit);
+db.typeProduit.hasMany(db.produit);
 
 db.produit.belongsTo(db.restaurant);
 db.restaurant.hasMany(db.produit);

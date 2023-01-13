@@ -82,6 +82,7 @@ exports.createTypeProduit = (req, res) => {
     });
 };
 
+/**
 exports.getTypesProduitByProduitId = (req, res) => {
   typeProduit
     .findAll({
@@ -106,7 +107,7 @@ exports.getTypesProduitByProduitId = (req, res) => {
       });
     });
 };
-
+*/
 exports.getTypesProduitByRestaurantId = (req, res) => {
   typeProduit
     .findAll({
@@ -134,6 +135,7 @@ exports.getTypesProduitByRestaurantId = (req, res) => {
     });
 };
 
+/**
 exports.addToProduit = (req, res, next) => {
   //On ajoute une adresse à l'utilisateur
   typeProduit
@@ -164,3 +166,4 @@ exports.addToProduit = (req, res, next) => {
       });
     });
 };
+*/
