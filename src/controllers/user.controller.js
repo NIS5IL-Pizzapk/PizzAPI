@@ -4,6 +4,7 @@ const User = db.users;
 const AdresseLivraison = db.adresseLivraison;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const mailer = require("../middlewares/mailer");
 
 //=======================================
 // Routes
@@ -127,6 +128,38 @@ exports.login = (req, res, next) => {
     .catch((err) => {
       res.status(401).json({
         message: "Invalid authentication credentials!",
+      });
+    });
+};
+
+exports.resetPassword = (req, res, next) => {
+  User.findOne({ where: { email: req.body.email } })
+    .then((user) => {
+      if (!user) {
+        return res.status(401).json({
+          message: "Auth failed: User with that email not found",
+        });
+      }
+      const newPass = "caca"
+        User.update({password: newPass}, { where: { email: req.body.email } })
+          .then((result) => {
+            const mail = user.email;
+            console.log("in user controller, mail : ",mail);
+            mailer.sendMailTest(mail)
+            res.status(200).json({
+              message: "Password updated successfully",
+            });
+
+          })
+          .catch((err) => {
+            res.status(500).json({
+              message: "Error updating password"+err,
+            });
+          });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Error finding user" + req.body.email,
       });
     });
 };

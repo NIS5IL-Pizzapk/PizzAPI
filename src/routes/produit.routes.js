@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const prodController = require("../controllers/produit.controller");
 const auth = require("../middlewares/auth");
-const upload = require("../middleware/upload");
+const upload = require("../middlewares/upload");
 
 router.get("/get_all", auth, prodController.getAllProduits);
 router.get("/by_id/:id", auth, prodController.getProduitById);
