@@ -33,7 +33,7 @@ exports.getAdresseById = (req, res) => {
 };
 
 exports.updateAdresse = (req, res) => {
-  AdresseLivraison.update(req.params.id)
+  AdresseLivraison.update(req.body, { where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Adress updated successfully",

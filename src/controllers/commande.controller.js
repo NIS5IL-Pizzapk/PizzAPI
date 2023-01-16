@@ -32,7 +32,7 @@ exports.getCommandeById = (req, res) => {
 };
 
 exports.updateCommande = (req, res) => {
-  Commande.update(req.params.id)
+  Commande.update(req.body, { where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Adresses fetched successfully",

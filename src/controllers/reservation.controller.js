@@ -33,7 +33,7 @@ exports.getReservationById = (req, res) => {
 };
 
 exports.updateReservation = (req, res) => {
-  Reservation.update(req.params.id)
+  Reservation.update(req.body, { where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Reservation updated successfully",
