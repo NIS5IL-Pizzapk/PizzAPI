@@ -81,6 +81,12 @@ exports.getProduitById = (req, res) => {
 };
 
 exports.updateProduit = (req, res) => {
+  const produit = req.body;
+  if (req.file) {
+    produit.imgPath = `${req.protocol}://${req.get("host")}/images/${
+      req.file.filename
+    }`;
+  }
   Produit.update(req.params.id)
     .then((result) => {
       res.status(200).json({
@@ -111,6 +117,10 @@ exports.deleteProduit = (req, res) => {
 };
 
 exports.createProduit = (req, res) => {
+  const produit = req.body;
+  produit.imgPath = `${req.protocol}://${req.get("host")}/images/${
+    req.file.filename
+  }`;
   Produit.create(req.body, { include: [{ model: db.tag }] })
     .then((result) => {
       res.status(200).json({

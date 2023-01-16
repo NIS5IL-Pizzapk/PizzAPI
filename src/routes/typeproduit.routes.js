@@ -7,16 +7,19 @@ router.get("/by_id/:id", auth, typeController.getTypeProduitById);
 router.post("/create", auth, typeController.createTypeProduit);
 router.put("/update/:id", auth, typeController.updateTypeProduit);
 router.delete("/delete/:id", auth, typeController.deleteTypeProduit);
-router.get(
+/**
+ * router.get(
   "/get_by_produit/:id",
   auth,
   typeController.getTypesProduitByProduitId
 );
+**/
 router.get(
   "/get_by_restaurant/:id",
   auth,
   typeController.getTypesProduitByRestaurantId
 );
-router.post("/add_to_produit", auth, typeController.addToProduit);
+
+//router.post("/add_to_produit", auth, typeController.addToProduit);
 
 module.exports = router;

@@ -4,6 +4,7 @@ const db = require("./models/databases/db-config"); // Import db
 require("dotenv").config(); // Import dotenv
 const swaggerUi = require("swagger-ui-express"); // Import swagger
 const swaggerFile = require("./swagger_output.json"); // Import swagger
+const path = require("path"); // Import path
 
 //=======================================
 // Constantes et variables
@@ -55,3 +56,7 @@ app.use("/api/creneau", require("./routes/creneau.routes"));
 
 //SWAGGER
 app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+//Autoriser l'accès au dossier images de l'API
+
+app.use("/images", express.static(path.join(__dirname, "images")));

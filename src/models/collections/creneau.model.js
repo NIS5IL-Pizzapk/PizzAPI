@@ -14,7 +14,6 @@ module.exports = (sequelize, Sequelize) => {
       date: {
         type: Sequelize.DATEONLY,
         allowNull: false,
-        defaultValue: "anon",
       },
       heure_debut: {
         type: Sequelize.TIME,
