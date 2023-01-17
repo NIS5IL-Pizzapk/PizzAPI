@@ -5,7 +5,7 @@ const PlatCommande = db.platcommande;
 exports.getAllProduits = (req, res) => {
   Produit.findAll({
     include: [
-      { model: db.typeProduit, required: false, through: { attributes: [] } },
+      // { model: db.typeProduit, required: false, through: { attributes: [] } },
     ],
   })
     .then((result) => {
@@ -25,7 +25,7 @@ exports.getAllPlats = (req, res) => {
   Produit.findAll({
     where: { supplement: false },
     include: [
-      { model: db.typeProduit, required: false, through: { attributes: [] } },
+      // { model: db.typeProduit, required: false, through: { attributes: [] } },
     ],
   })
     .then((result) => {
