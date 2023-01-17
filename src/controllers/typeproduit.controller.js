@@ -36,7 +36,7 @@ exports.getTypeProduitById = (req, res) => {
 
 exports.updateTypeProduit = (req, res) => {
   typeProduit
-    .update(req.params.id)
+    .update(req.body, { where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Types fetched successfully",
@@ -82,6 +82,7 @@ exports.createTypeProduit = (req, res) => {
     });
 };
 
+/**
 exports.getTypesProduitByProduitId = (req, res) => {
   typeProduit
     .findAll({
@@ -106,7 +107,7 @@ exports.getTypesProduitByProduitId = (req, res) => {
       });
     });
 };
-
+*/
 exports.getTypesProduitByRestaurantId = (req, res) => {
   typeProduit
     .findAll({
@@ -134,6 +135,7 @@ exports.getTypesProduitByRestaurantId = (req, res) => {
     });
 };
 
+/**
 exports.addToProduit = (req, res, next) => {
   //On ajoute une adresse à l'utilisateur
   typeProduit
@@ -164,3 +166,4 @@ exports.addToProduit = (req, res, next) => {
       });
     });
 };
+*/

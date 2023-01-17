@@ -63,6 +63,7 @@ db.typeProduit = require("../collections/typeproduit.model")(
   sequelize,
   Sequelize
 );
+db.creneau = require("../collections/creneau.model")(sequelize, Sequelize);
 
 //Définition des relations entre les tables
 db.adresseLivraison.belongsTo(db.users);
@@ -95,14 +96,8 @@ db.allergenes.belongsToMany(db.produit, {
   timestamps: false,
 });
 
-db.produit.belongsToMany(db.typeProduit, {
-  through: "produit_type_de_produit",
-  timestamps: false,
-});
-db.typeProduit.belongsToMany(db.produit, {
-  through: "produit_type_de_produit",
-  timestamps: false,
-});
+db.produit.belongsTo(db.typeProduit);
+db.typeProduit.hasMany(db.produit);
 
 db.produit.belongsTo(db.restaurant);
 db.restaurant.hasMany(db.produit);
@@ -112,5 +107,11 @@ db.users.hasMany(db.reservation);
 
 db.reservation.belongsTo(db.restaurant);
 db.restaurant.hasMany(db.reservation);
+
+db.creneau.belongsTo(db.restaurant);
+db.restaurant.hasMany(db.creneau);
+
+db.creneau.hasMany(db.platcommande);
+db.platcommande.belongsTo(db.creneau);
 
 module.exports = db;

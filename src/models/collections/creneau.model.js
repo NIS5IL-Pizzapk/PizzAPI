@@ -3,35 +3,33 @@
 //=======================================
 
 module.exports = (sequelize, Sequelize) => {
-  const Restaurant = sequelize.define(
-    "restaurant",
+  const Creneau = sequelize.define(
+    "creneau",
     {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      ville: {
-        type: Sequelize.STRING,
+      date: {
+        type: Sequelize.DATEONLY,
         allowNull: false,
       },
-      adresse: {
-        type: Sequelize.STRING,
-      },
-      heure_max_commande: {
+      heure_debut: {
         type: Sequelize.TIME,
+        allowNull: false,
       },
-      plats_par_creneau: {
+      heure_fin: {
+        type: Sequelize.TIME,
+        allowNull: false,
+      },
+      nbCommandes: {
         type: Sequelize.INTEGER,
+        defaultValue: 0,
       },
-      duree_creneau_minutes: {
-        type: Sequelize.INTEGER,
-      },
-      debut_premier_creneau: {
-        type: Sequelize.TIME,
-      },
-      fin_dernier_creneau: {
-        type: Sequelize.TIME,
+      ouvert: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
       },
     },
     {
@@ -39,5 +37,5 @@ module.exports = (sequelize, Sequelize) => {
     }
   );
 
-  return Restaurant;
+  return Creneau;
 };
