@@ -8,13 +8,13 @@ let mailTransporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: "unavitatest@outlook.fr",
-        pass: "Unavita2023"
+        user: "unavitatest2@outlook.fr",
+        pass: "4fpTQ7W6nyaQ78"
     }
 })
 
 let mailDetails = {
-    from: "unavitatest@outlook.fr",
+    from: "unavitatest2@outlook.fr",
     to: mail,
     body:"test",
 } 
