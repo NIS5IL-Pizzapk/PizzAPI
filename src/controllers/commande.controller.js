@@ -47,7 +47,7 @@ exports.updateCommande = (req, res) => {
 };
 
 exports.deleteCommande = (req, res) => {
-  Commande.destroy(req.params.id)
+  Commande.destroy({ where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Adresses fetched successfully",

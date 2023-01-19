@@ -55,7 +55,7 @@ exports.updatePlatCommande = (req, res) => {
 };
 
 exports.deletePlatCommande = (req, res) => {
-  PlatComm.destroy(req.params.id)
+  PlatComm.destroy({ where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Products deleted successfully",

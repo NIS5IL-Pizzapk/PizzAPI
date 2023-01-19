@@ -48,7 +48,7 @@ exports.updateReservation = (req, res) => {
 };
 
 exports.deleteReservation = (req, res) => {
-  Reservation.destroy(req.params.id)
+  Reservation.destroy({ where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Reservation deleted successfully",

@@ -52,7 +52,7 @@ exports.updateTypeProduit = (req, res) => {
 
 exports.deleteTypeProduit = (req, res) => {
   typeProduit
-    .destroy(req.params.id)
+    .destroy({ where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Type deleted successfully",

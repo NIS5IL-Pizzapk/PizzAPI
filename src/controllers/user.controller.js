@@ -130,3 +130,33 @@ exports.login = (req, res, next) => {
       });
     });
 };
+
+exports.updateUser = (req, res) => {
+  User.update(req.body, { where: { id: req.params.id } })
+    .then((result) => {
+      res.status(200).json({
+        message: "User updated successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Utilisateur introuvable : " + err,
+      });
+    });
+};
+
+exports.deleteUser = (req, res) => {
+  User.destroy({ where: { id: req.params.id } })
+    .then((result) => {
+      res.status(200).json({
+        message: "User deleted successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Utilisateur introuvable : " + err,
+      });
+    });
+};
