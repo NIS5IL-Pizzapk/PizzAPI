@@ -87,7 +87,7 @@ exports.updateProduit = (req, res) => {
       req.file.filename
     }`;
   }
-  Produit.update(req.params.id)
+  Produit.update(req.body, { where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Products updated successfully",
@@ -102,7 +102,7 @@ exports.updateProduit = (req, res) => {
 };
 
 exports.deleteProduit = (req, res) => {
-  Produit.destroy(req.params.id)
+  Produit.destroy({ where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Products deleted successfully",

@@ -33,7 +33,7 @@ exports.getRestaurantById = (req, res) => {
 };
 
 exports.updateRestaurant = (req, res) => {
-  Restaurant.update(req.params.id)
+  Restaurant.update(req.body, { where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Restaurant updated successfully",
@@ -48,7 +48,7 @@ exports.updateRestaurant = (req, res) => {
 };
 
 exports.deleteRestaurant = (req, res) => {
-  Restaurant.destroy(req.params.id)
+  Restaurant.destroy({ where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Restaurant deleted successfully",

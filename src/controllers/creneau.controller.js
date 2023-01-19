@@ -33,7 +33,7 @@ exports.getCreneauById = (req, res) => {
 };
 
 exports.updateCreneau = (req, res) => {
-  Creneaux.update(req.params.id)
+  Creneaux.update(req.body, { where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Creneau updated successfully",
@@ -48,7 +48,7 @@ exports.updateCreneau = (req, res) => {
 };
 
 exports.deleteCreneau = (req, res) => {
-  Creneau.destroy(req.params.id)
+  Creneau.destroy({ where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Creneau deleted successfully",
@@ -77,19 +77,25 @@ exports.createCreneau = (req, res) => {
     });
 };
 
-//TODO : A revoir / Faire une requete qui renvoie le prochain créneau disponible
+//TODO : A revoir
 
 //WIP
-exports.remplirCreneau = (req, res) => {
+exports.premierCreneauDispo = (req, res) => {
   Creneau.findAll({
-    where: { date: Sequelize.fn("CURDATE") },
+    where: {
+      date: Sequelize.fn("CURDATE"),
+      nbCommande: 0,
+      heure_debut: { [Sequelize.Op.gt]: Sequelize.fn("CURTIME") },
+      ouvert: true,
+    },
     order: [["heure_debut", "ASC"]],
     limit: 1,
   })
     .then((result) => {
-      if (result.length > 0) {
-      } else {
-      }
+      res.status(200).json({
+        message: "Creneau fetched successfully",
+        result: result,
+      });
     })
     .catch((err) => {
       res.status(500).json({

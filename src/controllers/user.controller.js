@@ -140,26 +140,55 @@ exports.resetPassword = (req, res, next) => {
           message: "Auth failed: User with that email not found",
         });
       }
-      const newPass = "caca"
-        User.update({password: newPass}, { where: { email: req.body.email } })
-          .then((result) => {
-            const mail = user.email;
-            console.log("in user controller, mail : ",mail);
-            mailer.sendMailTest(mail)
-            res.status(200).json({
-              message: "Password updated successfully",
-            });
-
-          })
-          .catch((err) => {
-            res.status(500).json({
-              message: "Error updating password"+err,
-            });
+      const newPass = "caca";
+      User.update({ password: newPass }, { where: { email: req.body.email } })
+        .then((result) => {
+          const mail = user.email;
+          console.log("in user controller, mail : ", mail);
+          mailer.sendMailTest(mail);
+          res.status(200).json({
+            message: "Password updated successfully",
           });
+        })
+        .catch((err) => {
+          res.status(500).json({
+            message: "Error updating password" + err,
+          });
+        });
     })
     .catch((err) => {
       res.status(500).json({
         message: "Error finding user" + req.body.email,
+      });
+    });
+};
+
+exports.updateUser = (req, res) => {
+  User.update(req.body, { where: { id: req.params.id } })
+    .then((result) => {
+      res.status(200).json({
+        message: "User updated successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Utilisateur introuvable : " + err,
+      });
+    });
+};
+
+exports.deleteUser = (req, res) => {
+  User.destroy({ where: { id: req.params.id } })
+    .then((result) => {
+      res.status(200).json({
+        message: "User deleted successfully",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Utilisateur introuvable : " + err,
       });
     });
 };

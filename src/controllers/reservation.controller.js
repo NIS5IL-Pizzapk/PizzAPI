@@ -33,7 +33,7 @@ exports.getReservationById = (req, res) => {
 };
 
 exports.updateReservation = (req, res) => {
-  Reservation.update(req.params.id)
+  Reservation.update(req.body, { where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Reservation updated successfully",
@@ -48,7 +48,7 @@ exports.updateReservation = (req, res) => {
 };
 
 exports.deleteReservation = (req, res) => {
-  Reservation.destroy(req.params.id)
+  Reservation.destroy({ where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Reservation deleted successfully",

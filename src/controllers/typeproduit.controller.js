@@ -36,7 +36,7 @@ exports.getTypeProduitById = (req, res) => {
 
 exports.updateTypeProduit = (req, res) => {
   typeProduit
-    .update(req.params.id)
+    .update(req.body, { where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Types fetched successfully",
@@ -52,7 +52,7 @@ exports.updateTypeProduit = (req, res) => {
 
 exports.deleteTypeProduit = (req, res) => {
   typeProduit
-    .destroy(req.params.id)
+    .destroy({ where: { id: req.params.id } })
     .then((result) => {
       res.status(200).json({
         message: "Type deleted successfully",
