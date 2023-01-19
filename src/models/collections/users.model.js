@@ -28,6 +28,10 @@ module.exports = (sequelize, Sequelize) => {
       telephone: {
         type: Sequelize.STRING,
       },
+      pointsFidelite: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
       admin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
