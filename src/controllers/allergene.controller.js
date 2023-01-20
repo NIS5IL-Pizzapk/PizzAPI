@@ -82,7 +82,7 @@ exports.getAllergeneByProduitId = (req, res) => {
     include: [
       {
         model: db.produit,
-        attributes: ["id", "type", "nom"],
+        attributes: ["id", "nom"],
         where: { id: req.params.id },
         required: true,
       },

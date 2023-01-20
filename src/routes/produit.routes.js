@@ -18,7 +18,7 @@ router.post(
   prodController.getPlatsByTypeEtRestaurant
 );
 
-router.get("/supplement/get_all", auth, prodController.getAllSupplements);
+router.get("/supplement/get_all", prodController.getAllSupplements);
 router.get("/supplement/by_tag/:id", prodController.getSupplementByTag);
 router.post(
   "/supplement/by_type_et_restaurant",
