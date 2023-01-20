@@ -18,6 +18,10 @@ module.exports = (sequelize, Sequelize) => {
       menuImgPath: {
         type: Sequelize.STRING,
       },
+      bloqueCreneau: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
     },
     {
       timestamps: false,

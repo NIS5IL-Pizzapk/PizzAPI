@@ -23,9 +23,11 @@ module.exports = (sequelize, Sequelize) => {
       },
       plats_par_creneau: {
         type: Sequelize.INTEGER,
+        defaultValue: 6,
       },
       duree_creneau_minutes: {
         type: Sequelize.INTEGER,
+        defaultValue: 15,
       },
       debut_premier_creneau: {
         type: Sequelize.TIME,
