@@ -78,8 +78,16 @@ exports.createReservation = (req, res) => {
 };
 
 exports.getAllReservationsFromUser = (req, res, next) => {
-  if (req.auth.userId !== req.params.id && !req.auth.admin) {
-    return res.status(401).json({
+  if (req.auth.userId != req.params.id && !req.auth.admin) {
+    console.log(
+      "req.auth.userId",
+      req.auth.userId,
+      "req.params.id",
+      req.params.id,
+      "req.auth.admin",
+      req.auth.admin
+    );
+    return res.status(403).json({
       message: "Invalid authentication credentials!",
     });
   }

@@ -30,7 +30,7 @@ exports.signup = (req, res, next) => {
       })
       .catch((err) => {
         res.status(500).json({
-          message: "Invalid authentication credentials!",
+          message: "Invalid authentication credentials!" + err,
         });
       });
   });
@@ -67,7 +67,7 @@ exports.getUserById = (req, res, next) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Invalid id",
+        message: "An error occured : " + err,
       });
     });
 };
@@ -104,8 +104,9 @@ exports.login = (req, res, next) => {
               const token = jwt.sign(
                 {
                   username: fetchedUser.username,
-                  userId: fetchedUser._id,
+                  userId: fetchedUser.id,
                   email: fetchedUser.email,
+                  admin: fetchedUser.admin,
                 },
                 process.env.JWT_KEY,
                 { expiresIn: "1h" }
@@ -127,7 +128,7 @@ exports.login = (req, res, next) => {
     })
     .catch((err) => {
       res.status(401).json({
-        message: "Invalid authentication credentials!",
+        message: "Invalid authentication credentials!" + err,
       });
     });
 };
@@ -140,7 +141,7 @@ exports.resetPassword = (req, res, next) => {
           message: "Auth failed: User with that email not found",
         });
       }
-      const newPass = "caca";
+      const newPass = "123456";
       User.update({ password: newPass }, { where: { email: req.body.email } })
         .then((result) => {
           const mail = user.email;

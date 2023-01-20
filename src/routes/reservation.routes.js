@@ -8,6 +8,10 @@ router.post("/create", auth, resaController.createReservation);
 router.put("/update/:id", auth, resaController.updateReservation);
 router.delete("/delete/:id", auth, resaController.deleteReservation);
 //Utiliser cette route pour récupérer toutes les réservations d'un utilisateur
-router.get("/all_from_user/:id", resaController.getAllReservationsFromUser);
+router.get(
+  "/all_from_user/:id",
+  auth,
+  resaController.getAllReservationsFromUser
+);
 
 module.exports = router;
