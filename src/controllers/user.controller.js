@@ -38,7 +38,7 @@ exports.signup = (req, res, next) => {
 
 //GetAllUsers
 exports.getAllUsers = (_req, res, _next) => {
-  User.findAll()
+  User.findAll({ attributes: { exclude: ["password"] } })
     .then((result) => {
       res.status(200).json({
         message: "Users fetched successfully",
@@ -58,7 +58,9 @@ exports.getUserById = (req, res, next) => {
       message: "Invalid authentication credentials!",
     });
   }
-  User.findByPk(req.params.id.toInteger())
+  User.findByPk(req.params.id.toInteger(), {
+    attributes: { exclude: ["password"] },
+  })
     .then((result) => {
       res.status(200).json({
         message: "User fetched successfully",
