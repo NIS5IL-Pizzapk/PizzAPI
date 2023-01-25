@@ -16,12 +16,12 @@ let mailTransporter = nodemailer.createTransport({
 let mailDetails = {
     from: "unavitatest2@outlook.fr",
     to: mail,
-    body:"test",
+    subject: "Unavita - Mot de passe oublié !",
+    body:"Bonjour, vous avez oublié votre mot de passe ? Voici votre nouveau mot de passe : " + mail.password,
 } 
 
 mailTransporter.sendMail(mailDetails, function(err, info) {
     if(err) {
-        
         console.log(err);
     } else {
         console.log("Sent : " + info.response);

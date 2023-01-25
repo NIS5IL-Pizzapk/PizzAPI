@@ -133,6 +133,7 @@ exports.login = (req, res, next) => {
 };
 
 exports.resetPassword = (req, res, next) => {
+  
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
@@ -140,7 +141,7 @@ exports.resetPassword = (req, res, next) => {
           message: "Auth failed: User with that email not found",
         });
       }
-      const newPass = "caca"
+      bcrypt.hash(req.body.password, 10).then((hash) => {
         User.update({password: newPass}, { where: { email: req.body.email } })
           .then((result) => {
             const mail = user.email;
@@ -159,7 +160,8 @@ exports.resetPassword = (req, res, next) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Error finding user" + req.body.email,
+        message: "Error finding user " + req.body.email,
       });
     });
+  });
 };
